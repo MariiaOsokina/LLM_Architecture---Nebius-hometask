@@ -2,8 +2,7 @@
 
 # Week 1 - Optimization in PyTorch — Gradient Descent, SGD, Numerical Stability, and L1 Regularization
 
-Learning goals of this hometask
-By completing this assignment:
+Learning goals of this hometask:
 * Understand preprocessing design choices (tokenization provided, fixed vocabulary).
 * Implement and train Logistic Regression manually in PyTorch using SGD.
 * Explain why numerical stability matters in softmax and log-loss.
@@ -11,83 +10,38 @@ By completing this assignment:
 * Understand the effect of L1 regularization and why it encourages sparsity.
 * Understanding how an optimization algorithm behaves when the loss function has different shapes.
 
+# Week 4, Part 1 - Neural Networks for Image Classification
+Building and training neural networks on the CIFAR-10 dataset.
 
-# Week 4, Part 1 - CIFAR-10 Classification: A Deep Learning Journey
+Learning goals of this hometask:
+* Analyze Activation Functions: Compare the convergence speed and stability of non-saturating (ReLU) vs. saturating (Sigmoid, Tanh) activation functions.
+* Architecture Design: Understand the trade-offs between network Width and Depth and identify the "Law of Diminishing Returns" when scaling model capacity.
+* Hyperparameter Optimization: Evaluate how learning rate, batch size, and choice of optimizer (Adam, SGD, RMSprop) influence training dynamics and final test performance.
+* Generalization & Regularization: Implement <BatchNorm> to stabilize gradients and <Dropout> to prevent "memorization" of training noise, especially in complex datasets like Cat vs. Dog.
+* Binary to Multiclass Transition: Scale a classification pipeline from binary (2 classes) to multiclass (10 classes) using CrossEntropyLoss and raw Logits.
+* Diagnose Overfitting: Identify the "Confidence Gap" by monitoring the divergence between Training Loss and Test Accuracy/Loss.
 
-This repository documents a systematic approach to optimizing neural networks for image classification using **PyTorch**. Through a series of experimental "Battles," this project scales from simple binary classification to a robust, regularized multiclass model capable of identifying all 10 CIFAR-10 categories.
+Key Technical Takeaways:
+* Numerical Stability: Applying BatchNorm before activation functions helps prevent gradient explosion and allows for higher learning rates.
+* The Vanishing Gradient Problem: Visualizing how Sigmoid/Tanh loss curves "flatline" in early epochs compared to the aggressive learning of ReLU.
+* Generalization Gap: Understanding that a model with high training accuracy but high test loss is "overconfident" and requires stochastic regularization like Dropout.
+* Layer Sequencing: Mastering the standard deep learning "sandwich" layer order: <Linear → BatchNorm → Activation → Dropout.>
 
-## 🛠 Technical Stack
-* **Framework:** PyTorch
-* **Optimization:** Adam, SGD + Momentum, RMSprop
-* **Regularization:** Batch Normalization, Dropout
-* **Data:** CIFAR-10 (32x32 RGB images)
-
-## 🧪 Phase 1: Binary Classification Optimization
-
-### Task 1.4: Frog vs. Ship (Optimization Benchmarking)
-The goal was to find the most efficient combination of hyperparameters to solve a relatively simple classification task.
-
-* **The Activation Battle:** **ReLU** outperformed Sigmoid and Tanh by eliminating the vanishing gradient problem, allowing the model to hit 90%+ accuracy almost instantly.
-* **The Architecture Battle:** While "Wide" models had raw power, the **Baseline [128, 64]** was selected as the "Best Practical Model" for its superior capacity-to-stability ratio.
-* **The Optimizer Battle:** **Adam** was chosen for final implementation due to its rapid convergence and stability, though **SGD + Momentum** achieved the highest technical peak (94.80%).
-
-### Task 1.5: Cat vs. Dog (The Regularization Battle)
-This task proved significantly harder due to the visual similarity of the classes. 
-
-* **The Overfitting Trap:** BatchNorm used alone reached 87.3% training accuracy but crashed on test data (59.4%).
-* **The Synergy Winner:** The combination of **BatchNorm + Dropout (0.3)** was the only setup to clear the **>0.64 accuracy** benchmark (Final: **65.55%**), proving that regularization is mandatory for complex features.
-
-## 🚀 Phase 2: Multiclass Mastery (10 Classes)
-
-### Task 3.4: Final Multiclass Optimization
-The final challenge was to achieve **>0.53 accuracy** across all 10 CIFAR-10 classes.
-
-#### **1. Architecture: Depth vs. Width**
-To distinguish between 10 complex classes, I scaled the architecture to a 3-layer deep network: **[512, 256, 128]**.
-* **Finding:** Depth allowed for better feature abstraction (associative memory), while the width provided the capacity to handle the increased variety of labels. 
-* **Result:** This architecture reached a final test accuracy of **57.22%**.
-
-#### **2. Activation Evolution & Convergence**
-
-Benchmarking the 3-layer network against different activations revealed:
-* **ReLU:** The efficiency leader, achieving target loss in roughly half the epochs of other functions.
-* **Sigmoid:** Suffered from flat gradients in early stages, struggling to propagate error signals through the deeper layers.
-* **Tanh:** Showed moderate speed but exhibited "jitter" and instability in later training stages.
-
-#### **3. Critical Hyperparameters**
-* **Learning Rate (LR):** Identified **0.001 (Adam)** as the "Goldilocks" setting. 
-* **BatchNorm:** Crucial for stabilizing the 3-layer deep structure and preventing gradient explosion.
-* **Loss Function:** Utilized **CrossEntropyLoss** paired with raw **Logits** as the output layer, ensuring mathematical consistency with PyTorch’s optimization engine.
-
----
-
-## 📈 Key Findings & "Interesting Behavior"
-
-* **The Confidence Gap:** I observed instances where Test Accuracy remained flat while Test Loss rose. This indicated the model was becoming "overconfident" in wrong answers—a precursor to overfitting managed by the addition of Dropout.
-* **The Law of Diminishing Returns:** Doubling the number of neurons did not double the accuracy. Instead, it increased the **Generalization Gap** (Training 68% vs Test 57%), highlighting the importance of regularization over raw size.
-* **Data Preprocessing:** Standardizing inputs in the Dataset class was essential for the weights to converge within the 30-epoch limit.
+# Week 4, Part 2 - Character-Level Language Model
+building a character-level RNN language model to generate dinosaur names.
 
 
+Learning goals of this hometask:
 
----
+* Understand Character-Level Preprocessing: Implement one-hot encoding for a fixed vocabulary and manage token_to_id mappings for text-to-tensor conversion.
+* Master RNN Architecture & Tensor Flow: Visualize how data flows through an LSTM, understanding the transition from 3D sequence blocks [batch, seq, hidden] to 2D flattened logits [batch * seq, vocab].
+* Differentiate Hidden vs. Cell States: Understand the dual-memory system of LSTMs (short-term $h$ vs. long-term $c$) and their roles in both training and name generation.
+* Implement Robust Training Loops: Learn to handle dynamic batch sizes (the "last batch" problem) and correctly initialize/detach hidden states to prevent memory leaks and unintended backpropagation through history.
+* Stabilize Recurrent Gradients: Apply Gradient Clipping to prevent the "exploding gradient" problem common in deep recurrent networks.
+* Evaluate Generative Models: Understand why Cross-Entropy Loss is the primary metric for text generation and how to interpret a loss "plateau" as the balance between memorization and creativity.
+* Compare Stochastic Decoding Strategies: Implement and tune Top-K Sampling and Temperature Scaling to control the trade-off between "safe" patterns and creative variation.
+* Implement Deterministic Search Algorithms: Build a Beam Search decoder using log-probability math to find the globally most probable sequence, moving beyond simple Greedy Search.
 
-## 🏁 Final "Champion" Configuration
-
-| Component | Choice | Rationale |
-| :--- | :--- | :--- |
-| **Activation** | **ReLU** | Fastest convergence; non-saturating. |
-| **Architecture** | **[512, 256, 128]** | Balanced capacity for 10-class complexity. |
-| **Regularization** | **BatchNorm + Dropout** | Prevents memorization of training noise. |
-| **Optimizer** | **Adam (0.001)** | Superior speed and adaptive step-sizing. |
-| **Output Layer** | **Logits** | Optimized for CrossEntropyLoss. |
-
----
-
-## 💻 How to Run
-1.  Open the provided `.ipynb` notebook in Google Colab.
-2.  Set the runtime to **GPU**.
-3.  Run the **Setup Block** to download CIFAR-10 and initialize the training/testing loaders.
-4.  Execute the **Task 3.4 Block** to see the final 57.22% model in action.
 
 ***
-*Project developed by Maria Osokina as part of the LLM Architectures curriculum.*
+*Project developed by Mariia Osokina as part of AI Performance Engineering curriculum from Nebius Academy https://academy.nebius.com/ai-engineering-uk.*
