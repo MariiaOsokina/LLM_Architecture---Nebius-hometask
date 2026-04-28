@@ -1,23 +1,23 @@
 # LLM_Architecture---Nebius-hometask
 
-# Week 1 - Optimization in PyTorch — Gradient Descent, SGD, Numerical Stability, and L1 Regularization
+# Week 1 - Optimisation in PyTorch — Gradient Descent, SGD, Numerical Stability, and L1 Regularisation
 
-Learning goals of this hometask:
-* Understand preprocessing design choices (tokenization provided, fixed vocabulary).
+Learning goals of this homework task:
+* Understand preprocessing design choices (tokenisation provided, fixed vocabulary).
 * Implement and train Logistic Regression manually in PyTorch using SGD.
 * Explain why numerical stability matters in softmax and log-loss.
-* Understand how optimization parameters like learning rate and batch size affect training.
-* Understand the effect of L1 regularization and why it encourages sparsity.
-* Understanding how an optimization algorithm behaves when the loss function has different shapes.
+* Understand how optimisation parameters like learning rate and batch size affect training.
+* Understand the effect of L1 regularisation and why it encourages sparsity.
+* Understanding how an optimisation algorithm behaves when the loss function has different shapes.
 
 # Week 4, Part 1 - Neural Networks for Image Classification
 Building and training neural networks on the CIFAR-10 dataset.
 
-Learning goals of this hometask:
-* Analyze Activation Functions: Compare the convergence speed and stability of non-saturating (ReLU) vs. saturating (Sigmoid, Tanh) activation functions.
+Learning goals of this homework task:
+* Analyse Activation Functions: Compare the convergence speed and stability of non-saturating (ReLU) vs. saturating (Sigmoid, Tanh) activation functions.
 * Architecture Design: Understand the trade-offs between network Width and Depth and identify the "Law of Diminishing Returns" when scaling model capacity.
-* Hyperparameter Optimization: Evaluate how learning rate, batch size, and choice of optimizer (Adam, SGD, RMSprop) influence training dynamics and final test performance.
-* Generalization & Regularization: Implement <BatchNorm> to stabilize gradients and <Dropout> to prevent "memorization" of training noise, especially in complex datasets like Cat vs. Dog.
+* Hyperparameter Optimisation: Evaluate how learning rate, batch size, and choice of optimiser (Adam, SGD, RMSprop) influence training dynamics and final test performance.
+* Generalisation & Regularisation: Implement <BatchNorm> to stabilise gradients and <Dropout> to prevent "memorisation" of training noise, especially in complex datasets like Cat vs. Dog.
 * Binary to Multiclass Transition: Scale a classification pipeline from binary (2 classes) to multiclass (10 classes) using CrossEntropyLoss and raw Logits.
 * Diagnose Overfitting: Identify the "Confidence Gap" by monitoring the divergence between Training Loss and Test Accuracy/Loss.
 
@@ -42,6 +42,15 @@ Learning goals of this hometask:
 * Compare Stochastic Decoding Strategies: Implement and tune Top-K Sampling and Temperature Scaling to control the trade-off between "safe" patterns and creative variation.
 * Implement Deterministic Search Algorithms: Build a Beam Search decoder using log-probability math to find the globally most probable sequence, moving beyond simple Greedy Search.
 
+# Week 6  - Build Your Own Tiny Transformer (Language Model)
+Learning goals of this hometask:
 
+* Master the Self-Attention Mechanism: Understand how to project input embeddings into Query ($Q$), Key ($K$), and Value ($V$) spaces and use their dot products to create a communication map between tokens.
+* Implement Causal Masking: Learn to apply a lower-triangular mask to the attention scores to ensure the model cannot "cheat" by looking at future characters during training.
+* Build the Transformer Block: Understand the "Pre-norm" architecture, combining Multi-Head Self-Attention and Position-wise Feed-Forward networks into a single repeatable unit.
+* Understand Residual Connections: Implement the "Residual Stream" (x = x + \text{sublayer}(x)) to allow gradients to flow through deep stacks of layers without vanishing.
+* Manage Positional Embeddings: Implement a learnable positional embedding table and understand how to "broadcast-add" it to token embeddings so the model understands character order.
+* Develop Autoregressive Generation: Implement the "loop" required to generate text one character at a time, specifically managing the cropping of the context to stay within the model's fixed block_size.
+* Understand Logit-to-Token Mapping: Learn how to use a linear "head" to project high-dimensional vectors back into vocabulary space and use Softmax sampling to produce creative, non-deterministic text.
 ***
 *Project developed by Mariia Osokina as part of AI Performance Engineering curriculum from Nebius Academy https://academy.nebius.com/ai-engineering-uk.*
