@@ -3,6 +3,16 @@
     {
       "cell_type": "markdown",
       "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/MariiaOsokina/LLM_Architecture---Nebius-hometask/blob/main/MO_LLM_Architecture-homework-Week8-part2%20-Tiny_transformer_RoPE_MoE\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
         "id": "d-jw3PC7YZ_H"
       },
       "source": [
@@ -1408,7 +1418,8 @@
   "metadata": {
     "colab": {
       "provenance": [],
-      "gpuType": "T4"
+      "gpuType": "T4",
+      "include_colab_link": true
     },
     "kernelspec": {
       "display_name": "Python 3",
