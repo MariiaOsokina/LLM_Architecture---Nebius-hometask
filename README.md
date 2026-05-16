@@ -71,6 +71,19 @@ Learning goals of this hometask:
 Key Technical Takeaways:
 * Zero-Initialization Strategy: Initializing matrix $B$ with zeros ensures the initial $\Delta W = 0$, preserving pre-trained performance at step 0.
 * Optimiser VRAM Savings: Filtering for requires_grad=True prevents AdamW from storing redundant momentums for frozen weights.The Scaling Factor ($\alpha/r$): Understanding how this hyperparameter stabilises the effective learning rate when modifying the adapter rank ($r$).
-* Functional Equivalence: Verifying that custom nn.Linear conversions and PEFT's Conv1D wrapping produce identical numerical results. 
+* Functional Equivalence: Verifying that custom nn.Linear conversions and PEFT's Conv1D wrapping produce identical numerical results.
+
+
+# Week 8 - Part 2 - - MoE Transformer with Rotary Embeddings (RoPE)
+
+Upgrading a dense transformer to a sparse architecture with relative positional transformations and dynamically gated token routing.
+
+Learning goals of this homework task:
+
+* Implement RoPE: Precompute sinusoidal grids to dynamically rotate Query and Key vectors, natively capturing relative distances instead of using absolute learnable position tables.
+* Build a Top-K Sparse MoE Layer: Replace standard Feed-Forward Networks with a gated expert system that dynamically dispatches each token to its top $K=2$ specialized networks.
+* Enforce Expert Capacity: Calculate maximum tensor budgets per expert and handle token dropping metrics to preserve fixed GPU memory limits.
+* Evaluate Generation Metrics: Interpret model performance using Perplexity (PPL) (predictive branching factor) and Bits Per Character (BPC) (information compression efficiency).
+* Manage Autoregressive Windows: Crop generated text sequences dynamically to prevent out-of-bounds context violations within the RoPE cache.
 ***
 *Project developed by Mariia Osokina as part of AI Performance Engineering curriculum from Nebius Academy https://academy.nebius.com/ai-engineering-uk.*
